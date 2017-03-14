@@ -301,7 +301,7 @@
             elem.nodeValue = str + opt.truncationChar;
         }
 
-        // 开始构造
+        // 根据包裹元素高度自动折行
         if (clampValue == 'auto') {
             clampValue = getMaxLines();
         }
@@ -326,7 +326,8 @@
             if (height < element.clientHeight) {
                 // 获取溢出省略文本
                 clampedText = truncate(getLastChild(element), height);
-            }else if (height = element.clientHeight) {
+            }
+            else {
                 clampedText = originalText;
             }
         }
