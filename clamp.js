@@ -1,6 +1,6 @@
 /**
- * @file 文本溢出解决方案 Released under the WTFPL license (http://www.wtfpl.net/about/)
- * @author jingchaofang <jing@turingca.com> Joseph Schmitt <http://joe.sh>  
+ * Released under the WTFPL license (http://www.wtfpl.net/about/)
+ * https://github.com/josephschmitt/Clamp.js
  * Clamps an HTML element by adding ellipsis to it if the content inside is too long. http://joe.sh/clamp-js
  */
 
@@ -9,12 +9,6 @@
      * Clamps a text node.
      * @param {HTMLElement} element. Element containing the text node to clamp.
      * @param {Object} options. Options to pass to the clamper.
-     */
-    /**
-     * 溢出文本节点
-     * @param  {Object} element 指定元素
-     * @param  {Object} options 参数对象
-     * @return {[type]}         [description]
      */
     function clamp(element, options) {
         options = options || {};
@@ -40,6 +34,8 @@
         var sty = element.style;
         // 原始文本
         var originalText = element.innerHTML;
+        // 截断后的纯文本
+        var clampedPureText = '';
         // 是否支持CSS溢出属性
         var supportsNativeClamp = typeof(element.style.webkitLineClamp) != 'undefined';
         // 溢出文本行数
@@ -68,6 +64,7 @@
          */
         function computeStyle(elem, prop) {
             if (!win.getComputedStyle) {
+
                 win.getComputedStyle = function(el, pseudo) {
                     this.el = el;
                     this.getPropertyValue = function(prop) {
@@ -93,15 +90,19 @@
          * on the current height of the element and the line-height of the text.
          */
         /**
-         * 获取最大行数
+         * 获取初始包裹元素内文本的最大行数
          * @param  {int} height 溢出文本包裹给定高度
          * @return {int}        最大行数
          */
         function getMaxLines(height) {
+            // avaiHeight可用高度
             var availHeight = height || element.clientHeight;
             var lineHeight = getLineHeight(element);
 
             // Math.floor()方法对一个数进行向下取整
+            // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
+            // Math.max() 函数返回一组数中的最大值
+            // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/max
             return Math.max(Math.floor(availHeight/lineHeight), 0);
         }
 
@@ -110,7 +111,7 @@
          * height of the text and the given clamp value.
          */
         /**
-         * 根据溢出行数获取最大高度
+         * 根据设定的溢出行数获取最大高度
          * @param  {number} clmp 溢出行数
          * @return {number}      溢出最大高度
          */
@@ -123,7 +124,7 @@
          * Returns the line-height of an element as an integer.
          */
         /**
-         * 返回指定元素文本行的高度的整数型
+         * 返回指定元素设置的行高属性的整数型值
          * @param  {Object} elem 指定元素
          * @return {number}      文本行的高度
          */
@@ -138,13 +139,15 @@
         }
 
 
-        // MEAT AND POTATOES
-        // 最基本的部分
+        // MEAT AND POTATOES 最基本的部分
+        // slice()方法将数组的一部分浅拷贝, 返回到从开始到结束（不包括结束）选择的新数组对象。原始数组不会被修改
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
         var splitOnChars = opt.splitOnChars.slice(0);
         // 指定分割字符
         var splitChar = splitOnChars[0];
-        // 字符块
+        // 字符块数组
         var chunks;
+        // 最后的字符块
         var lastChunk;
         
         /**
@@ -157,12 +160,20 @@
          */
         function getLastChild(elem) {
             // Current element has children, need to go deeper and get last child as a text node
+            // Node.lastChild是一个只读属性，返回当前节点的最后一个子节点。
+            // 如果父节点为一个元素节点，则子节点通常为一个元素节点，或一个文本节点，或一个注释节点。如果没有子节点，则返回 null。
+            // https://developer.mozilla.org/zh-CN/docs/Web/API/Node/lastChild
+            // ParentNode.children 是一个只读属性，返回一个包含当前元素的子元素的集合，该集合为一个即时更新的（live）HTMLCollection。
+            // https://developer.mozilla.org/zh-CN/docs/Web/API/ParentNode/children
             if (elem.lastChild.children && elem.lastChild.children.length > 0) {
-                // pop()方法用于删除并返回数组的最后一个元素。
+                // pop()方法从数组中删除最后一个元素，并返回该元素的值。此方法更改数组的长度。
+                // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/pop
                 return getLastChild(Array.prototype.slice.call(elem.children).pop());
             }
             // This is the absolute last child, a text node, but something's wrong with it. Remove it and keep trying
             // 这个是绝对的最后一个子元素，文本节点，但是有一些错误，删除它然后继续尝试
+            // node.nodeValue获取或设置当前节点的值
+            // https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeValue
             else if (
                     !elem.lastChild
                     || !elem.lastChild.nodeValue
@@ -170,6 +181,7 @@
                     || elem.lastChild.nodeValue == opt.truncationChar
                 ) {
                     // removeChild()方法可从子节点列表中删除某个节点。如删除成功，此方法可返回被删除的节点，如失败，则返回null。
+                    // https://developer.mozilla.org/zh-CN/docs/Web/API/Node/removeChild
                     elem.lastChild.parentNode.removeChild(elem.lastChild);
                     return getLastChild(element);
                 }
@@ -205,7 +217,9 @@
             }
 
             // replace()方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
-            // nodeValue属性设置或返回指定节点的节点值。
+            // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+            // node.nodeValue获取或设置当前节点的值
+            // https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeValue
             // 删除字符中的省略字符
             var nodeValue = target.nodeValue.replace(opt.truncationChar, '');
             
@@ -215,24 +229,32 @@
                 // If there are more characters to try, grab the next one
                 // 如果还有更多的字符去尝试，捕获下一个
                 if (splitOnChars.length > 0) {
-                    // shift()方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。
+                    // shift()方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度
+                    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/shift
                     splitChar = splitOnChars.shift();
                 }
                 // No characters to chunk by. Go character-by-character
                 else {
                     splitChar = '';
                 }
-                // split()方法用于把一个字符串分割成字符串数组。
+                // split()方法将一个String对象分割成字符串数组，通过将字符串分成子串。
+                // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split
+                // str.split([separator],[limit])
+                // 当找到一个 seperator 时，separator 会从字符串中被移除，返回存进一个数组当中的子字符串。
+                // 如果忽略 separator 参数，则返回的数组包含一个元素，该元素是原字符串。
+                // 如果 separator 是一个空字符串，则 str 将被转换为由字符串中字符组成的一个数组。
                 chunks = nodeValue.split(splitChar);
             }
             
             // If there are chunks left to remove, remove the last one and see if the nodeValue fits.
             if (chunks.length > 1) {
                 // console.log('chunks', chunks);
-                // pop()方法用于删除并返回数组的最后一个元素。
+                // pop()方法从数组中删除最后一个元素，并返回该元素的值。此方法更改数组的长度。
+                // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/pop
                 lastChunk = chunks.pop();
                 // console.log('lastChunk', lastChunk);
                 // join()方法用于把数组中的所有元素放入一个字符串。
+                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
                 applyEllipsis(target, chunks.join(splitChar));
             }
             // No more chunks can be removed using this character
@@ -250,7 +272,8 @@
             // Search produced valid chunks 搜索产生的有效块
             if (chunks) {
                 // It fits
-                // 子元素高度小于溢出文本限定最大宽度
+                // 元素高度小于等于溢出文本限定最大高度，意味着截断结束
+                // 注意添加截断html片段后的clientHeight不会高于maxHeight(特别是clamp为1的情况),否则死循环
                 if (element.clientHeight <= maxHeight) {
                     // There's still more characters to try splitting on, not quite done yet
                     // 仍旧有更多的字符要分割，还没有完全完成
@@ -260,6 +283,9 @@
                     }
                     // Finished!
                     else {
+                        // 返回之前获取截断后的纯文本
+                        clampedPureText = target.nodeValue;
+                        // console.log(clampedPureText);
                         return element.innerHTML;
                     }
                 }
@@ -324,7 +350,7 @@
         else {
             var height = getMaxHeight(clampValue);
             if (height < element.clientHeight) {
-                // 获取溢出省略文本
+                // 获取截断溢出省略文本
                 clampedText = truncate(getLastChild(element), height);
             }
             else {
@@ -334,7 +360,8 @@
         
         return {
             'original': originalText,
-            'clamped': clampedText
+            'clamped': clampedText,
+            'clampedPureText': clampedPureText
         }
     }
 
