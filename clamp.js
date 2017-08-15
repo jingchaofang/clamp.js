@@ -23,6 +23,10 @@
                 // Split on sentences (periods), hypens, en-dashes, em-dashes, and words (spaces).
                 // 在句号、连字符、短破折号、长破折号和字符空之间分割
                 animate:            options.animate || false,
+                // 是否已经定高(避免截取内容高度闪东),通过定高限制打点行数
+                hasHeight:          options.hasHeight || false,
+                // TODO是否截取的是纯文本节点
+                isPureTextNode:     options.isPureTextNode || false,
                 // 分割字符数组
                 splitOnChars:       options.splitOnChars || ['.', '-', '–', '—', ' '], 
                 // 省略字符，默认省略号
@@ -41,7 +45,8 @@
         // 溢出文本行数
         var clampValue = opt.clamp;
         // 是否css值，溢出文本给定高度
-        var isCSSValue = clampValue.indexOf && (clampValue.indexOf('px') > -1 || clampValue.indexOf('em') > -1);
+        var isCSSValue = clampValue.indexOf && (clampValue.indexOf('px') > -1 
+            || clampValue.indexOf('em') > -1 || clampValue.indexOf('rem') > -1);
         var truncationHTMLContainer;
             
         if (opt.truncationHTML) {
@@ -96,7 +101,7 @@
          */
         function getMaxLines(height) {
             // avaiHeight可用高度
-            var availHeight = height || element.clientHeight;
+            var availHeight = height || opt.hasHeight ? element.scrollHeight : element.clientHeight;
             var lineHeight = getLineHeight(element);
 
             // Math.floor()方法对一个数进行向下取整
@@ -274,7 +279,7 @@
                 // It fits
                 // 元素高度小于等于溢出文本限定最大高度，意味着截断结束
                 // 注意添加截断html片段后的clientHeight不会高于maxHeight(特别是clamp为1的情况),否则死循环
-                if (element.clientHeight <= maxHeight) {
+                if (opt.hasHeight ? element.scrollHeight <= maxHeight : element.clientHeight <= maxHeight) {
                     // There's still more characters to try splitting on, not quite done yet
                     // 仍旧有更多的字符要分割，还没有完全完成
                     if (splitOnChars.length >= 0 && splitChar != '') {
@@ -298,7 +303,6 @@
                 if (splitChar == '') {
                     applyEllipsis(target, '');
                     target = getLastChild(element);
-                    
                     reset();
                 }
             }
@@ -336,7 +340,7 @@
         }
         // 溢出文本
         var clampedText;
-        if (supportsNativeClamp && opt.useNativeClamp) {
+        if (supportsNativeClamp && opt.useNativeClamp && !opt.hasHeight) {
             sty.overflow = 'hidden';
             sty.textOverflow = 'ellipsis';
             sty.webkitBoxOrient = 'vertical';
@@ -348,13 +352,16 @@
             }
         }
         else {
-            var height = getMaxHeight(clampValue);
-            if (height < element.clientHeight) {
+            var height = opt.hasHeight ? parseFloat(computeStyle(element, 'height')) : getMaxHeight(clampValue);
+            if (opt.hasHeight ? height < element.scrollHeight : height < element.clientHeight) {
                 // 获取截断溢出省略文本
                 clampedText = truncate(getLastChild(element), height);
             }
             else {
                 clampedText = originalText;
+                if(opt.hasHeight) {
+                    element.style.height = "auto";
+                }
             }
         }
         
