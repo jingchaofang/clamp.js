@@ -1,5 +1,7 @@
 #clamp
 
+clamp.js在掌阅书城的应用及扩展
+
 ```less
 // 单行溢出打点...
 .ellipsis() {

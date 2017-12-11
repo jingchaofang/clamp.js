@@ -467,7 +467,7 @@ img[data-src] {
     left: 0;
     width: 5.2rem;
     height: 6.93333333rem;
-    background: url(/ch/detail/static/ireader/i/default.png) rgba(54, 58, 61, .05) center no-repeat;
+    background: url(i/default.png) rgba(54, 58, 61, .05) center no-repeat;
     background-size: 1.06666667rem 1.4rem
 }
 
@@ -532,13 +532,13 @@ img[data-src] {
 
 .score-star-dark {
     z-index: 2;
-    background: url(/ch/detail/static/ireader/i/star_dark.png) repeat-x;
+    background: url(i/star_dark.png) repeat-x;
     background-size: 12px 9px
 }
 
 .score-star-bright {
     z-index: 1;
-    background: url(/ch/detail/static/ireader/i/star_bright.png) repeat-x;
+    background: url(i/star_bright.png) repeat-x;
     background-size: 12px 9px
 }
 
@@ -949,7 +949,7 @@ img[data-src] {
     left: 0;
     width: 4.6rem;
     height: 6.2rem;
-    background: url(/ch/detail/static/ireader/i/default.png) rgba(54, 58, 61, .05) center no-repeat;
+    background: url(i/default.png) rgba(54, 58, 61, .05) center no-repeat;
     background-size: 1.06666667rem 1.4rem;
     -webkit-box-shadow: 0 .15rem .35rem 0 rgba(54, 58, 61, .1);
     box-shadow: 0 .15rem .35rem 0 rgba(54, 58, 61, .1)
@@ -1049,34 +1049,34 @@ img[data-src] {
 }
 
 .bottom-bar .shelf {
-    background: url(/ch/detail/static/ireader/i/shelf.png) no-repeat center .4rem;
+    background: url(i/shelf.png) no-repeat center .4rem;
     background-size: .68333333rem .71666667rem
 }
 
 .bottom-bar .on-shelf {
-    background: url(/ch/detail/static/ireader/i/on_shelf.png) no-repeat center .4rem;
+    background: url(i/on_shelf.png) no-repeat center .4rem;
     background-size: .7rem .73333333rem;
     color: rgba(54, 58, 61, .35)
 }
 
 .bottom-bar .discount {
-    background: url(/ch/detail/static/ireader/i/discount.png) no-repeat center .4rem;
+    background: url(i/discount.png) no-repeat center .4rem;
     background-size: .76666667rem .75rem;
     color: #ff9a37
 }
 
 .bottom-bar .down {
-    background: url(/ch/detail/static/ireader/i/down.png) no-repeat center .4rem;
+    background: url(i/down.png) no-repeat center .4rem;
     background-size: .63333333rem .8rem
 }
 
 .bottom-bar .wholedown {
-    background: url(/ch/detail/static/ireader/i/wholedown.png) no-repeat center .4rem;
+    background: url(i/wholedown.png) no-repeat center .4rem;
     background-size: .81666667rem .73333333rem
 }
 
 .bottom-bar .read {
-    background: url(/ch/detail/static/ireader/i/read.png) #0dace7 no-repeat center .4rem;
+    background: url(i/read.png) #0dace7 no-repeat center .4rem;
     background-size: 1.01666667rem .75rem;
     color: #fcfcfc;
     padding-top: 1.38333333rem

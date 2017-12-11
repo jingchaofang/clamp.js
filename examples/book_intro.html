@@ -99,9 +99,9 @@
     </div>
     <!-- 书籍内容简介和标签 -->
     <div class="content">
-        <div id="intro" class="content-intro">编辑简介：人若真的受伤个人若真的受伤的受伤K编辑简介：<br>人若真的受伤个人若真的受伤的受伤K
-            内容简编辑简介：人若真的受伤个人若真的受伤的受伤Kr编辑简介：人若真的受伤个人若真的受伤的受伤K</div>
-        <div class="content-tag">
+        <div id="intro" class="content-intro">编辑简介：人若真的受伤个人若真的受伤的受伤K编辑简介：人若真的受伤个人若真的受伤的受伤K
+            内容简编辑简介：人若真的受伤个人若真的受伤的受伤Kr编辑简</div>
+        <div id="tag" class="content-tag">
             <span>＃村上春树</span>
             <span>＃日本文学</span>
             <span>＃超现实</span>
@@ -235,8 +235,8 @@
             truncationHTML: '...<div class="triangle-wrap flex-all-center"><div class="triangle-down"></div></div>'
         });
 
-        var tagWrapWidth = $('.content-tag').width();
-        var $tagArray = $('.content-tag > span');
+        var tagWrapWidth = $('#tag').width();
+        var $tagArray = $('#tag > span');
         var tagNum = $tagArray.length;
         var tagTotalWidth = 0;
         var tagMarginRight;
@@ -267,7 +267,7 @@
             // console.log(tagTotalWidth);
             // 标签折行时
             if (tagWrapWidth > 0 && tagTotalWidth > tagWrapWidth) {
-                $('.content-tag').toggleClass('height-auto');
+                $('#tag').toggleClass('height-auto');
             }
         });
     });
