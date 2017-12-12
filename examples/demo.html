@@ -4,18 +4,30 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="">
-    <title></title>
+    <link href="http://apps.bdimg.com/libs/highlight.js/9.1.0/styles/default.min.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script>
+    hljs.initHighlightingOnLoad();
+    </script>
+    <title>字符串截取并打点方案</title>
     <style>
     * {
         margin: 0;
         padding: 0;
     }
 
+    body {
+        padding: 24px;
+    }
+
     section {
         font-size: 14px;
         color: #000;
-        margin: 30px;
+        margin: 24px 0;
+    }
+
+    p {
+        padding: 6px;
     }
 
     .ellipsis {
@@ -36,7 +48,7 @@
     }
 
     .clamp2 {
-        -webkit-line-clamp: 4;
+        -webkit-line-clamp: 2;
     }
 
     .tag {
@@ -53,44 +65,128 @@
         white-space: nowrap;
         margin: 10px 8px 0 0;
     }
+
     .triangle {
         display: inline-block;
-        width: 4px;
-        height: 4px;
+        position: relative;
+        float: right;
+        width: 8px;
+        height: 8px;
     }
-    .triangle {
+
+    .triangle::before {
+        content: '';
+        position: absolute;
         display: inline-block;
+        top: 0;
+        left: 0;
         width: 0;
         height: 0;
         border: 4px solid;
-        margin-left: 12px;
     }
+
     .down {
+        margin: 10px 10px 0;
+    }
+
+    .up {
+        margin: 6px 10px 0;
+    }
+
+    .down::before {
         border-color: #000 transparent transparent;
         vertical-align: -0.25ex;
     }
-    .up {
+
+    .up::before {
         border-color: transparent transparent #000;
         vertical-align: 0.25ex;
+    }
+
+    .tags {
+        overflow: hidden;
+        height: 32px;
     }
     </style>
 </head>
 
 <body>
-    <section class="clamp clamp2">
-        一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本
-    </section>
-    <section class="ellipsis">
-        一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本
-    </section>
-    <section class="clamp clamp1">
-        一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本
-    </section>
+    <figure>
+        <p>css语法限制2行打点</p>
+        <pre><code class="css">
+    .clamp {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+    .clamp2 {
+        -webkit-line-clamp: 2;
+    }
+    </code></pre>
+        <section class="clamp clamp2">
+            一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本
+        </section>
+    </figure>
+    <figure>
+        <p>css语法限制1行打点</p>
+        <pre><code class="css">
+    .ellipsis {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    </code></pre>
+        <section class="ellipsis">
+            一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本
+        </section>
+    </figure>
+    <figure>
+        <p>css语法限制1行打点</p>
+        <pre><code class="css">
+    .clamp {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+    .clamp1 {
+        -webkit-line-clamp: 1;
+    }
+    </code></pre>
+        <section class="clamp clamp1">
+            一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本
+        </section>
+    </figure>
+    <figure>
+        <p>包裹元素不定高clamp.zepto.js截取并拼接片段，不定高容易出现大幅度闪动，影响体验</p>
+        <pre><code class="javascript">
+    var $intro1 = $('#intro1');
+    var clampResult1 = $intro1.clamp({
+        clamp: 3,
+        truncationHTML: '...'
+    });
+    </code></pre>
+        <section>
+            <div id="intro1" style="overflow: hidden;line-height:20px;">佟一琮家里祖辈都是玉匠，可是他父亲佟瑞国却反对他碰玉，但又将他抓周时的那块玉系着红绳，栓在他的脖子上。告诉他要善待这块玉，玉是通灵的，救得了人的性命。佟一琮母亲对他的女朋友程小瑜有一种天然的不信任。佟一琮与程小瑜草草结婚后去了上海打工。程小瑜进了外企，事业发展得很好，而佟一琮痴迷于玉，不安心于现在的工作，听说玉王要运往鞍山雕成玉佛，佟一琮执意要回去，为玉佛送行。两人的关系渐行渐远，终于，程小瑜投入了一位成功男人的怀抱。佟一琮出没于全国各大玉器市场，认识了一位老板步凡。佟一琮渐渐懂得，真正的好作品，卖的是艺，不是玉。而这艺的内容就多了。不能就玉而玉，地质学、古玩、根雕、外国美术、佛学、儒学、道家等等，各方面都要学习。佟一琮自此真正入了道，在玉行里浸淫，在商场上拼杀，最终成为了业界赫赫有名的玉雕大师、玉王，并找到了自己心爱之人……本书通过一个玉石大师的成长奋斗和爱恨情仇，侧面展现了一个令人惊叹的玉器古玩世界；以及玩玉、赏玉的知识；以及这个行业里面的各种规则、陷阱；以及人与人之间各种错综复杂的关系。</div>
+        </section>
+    </figure>
+    <figure>
+        <p>包裹元素定高clamp.zepto.js截取并拼接片段</p>
+        <pre><code class="javascript">
+    var $intro2 = $('#intro2');
+    var clampResult2 = $intro2.clamp({
+        hasHeight: true,
+        truncationHTML: '...'
+    });
+    </code></pre>
+        <section>
+            <div id="intro2" style="overflow: hidden;height: 60px;line-height: 20px;">佟一琮家里祖辈都是玉匠，可是他父亲佟瑞国却反对他碰玉，但又将他抓周时的那块玉系着红绳，栓在他的脖子上。告诉他要善待这块玉，玉是通灵的，救得了人的性命。佟一琮母亲对他的女朋友程小瑜有一种天然的不信任。佟一琮与程小瑜草草结婚后去了上海打工。程小瑜进了外企，事业发展得很好，而佟一琮痴迷于玉，不安心于现在的工作，听说玉王要运往鞍山雕成玉佛，佟一琮执意要回去，为玉佛送行。两人的关系渐行渐远，终于，程小瑜投入了一位成功男人的怀抱。佟一琮出没于全国各大玉器市场，认识了一位老板步凡。佟一琮渐渐懂得，真正的好作品，卖的是艺，不是玉。而这艺的内容就多了。不能就玉而玉，地质学、古玩、根雕、外国美术、佛学、儒学、道家等等，各方面都要学习。佟一琮自此真正入了道，在玉行里浸淫，在商场上拼杀，最终成为了业界赫赫有名的玉雕大师、玉王，并找到了自己心爱之人……本书通过一个玉石大师的成长奋斗和爱恨情仇，侧面展现了一个令人惊叹的玉器古玩世界；以及玩玉、赏玉的知识；以及这个行业里面的各种规则、陷阱；以及人与人之间各种错综复杂的关系。</div>
+        </section>
+    </figure>
     <section>
-        <div id="intro" style="overflow: hidden; height: 60px;">
-            一段很长的文本一段很长的文本<br>一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本
-        </div>
-        <div id="tags" style="overflow: hidden; height: 32px;">
+        <div id="intro3" style="overflow: hidden;height: 60px;line-height: 20px">佟一琮家里祖辈都是玉匠，可是他父亲佟瑞国却反对他碰玉，但又将他抓周时的那块玉系着红绳，栓在他的脖子上。告诉他要善待这块玉，玉是通灵的，救得了人的性命。佟一琮母亲对他的女朋友程小瑜有一种天然的不信任。佟一琮与程小瑜草草结婚后去了上海打工。程小瑜进了外企，事业发展得很好，而佟一琮痴迷于玉，不安心于现在的工作，听说玉王要运往鞍山雕成玉佛，佟一琮执意要回去，为玉佛送行。两人的关系渐行渐远，终于，程小瑜投入了一位成功男人的怀抱。佟一琮出没于全国各大玉器市场，认识了一位老板步凡。佟一琮渐渐懂得，真正的好作品，卖的是艺，不是玉。而这艺的内容就多了。不能就玉而玉，地质学、古玩、根雕、外国美术、佛学、儒学、道家等等，各方面都要学习。佟一琮自此真正入了道，在玉行里浸淫，在商场上拼杀，最终成为了业界赫赫有名的玉雕大师、玉王，并找到了自己心爱之人……本书通过一个玉石大师的成长奋斗和爱恨情仇，侧面展现了一个令人惊叹的玉器古玩世界；以及玩玉、赏玉的知识；以及这个行业里面的各种规则、陷阱；以及人与人之间各种错综复杂的关系。</div>
+        <div id="tag3" class="tags">
             <span class="tag">村上春树</span>
             <span class="tag">村上春树</span>
             <span class="tag">日本文学</span>
@@ -99,26 +195,108 @@
             <span class="tag">现代</span>
         </div>
     </section>
+    
+    <section>
+        <div id="intro4" style="overflow: hidden;height: 60px;line-height: 20px">、赏玉的知识；以及这个行业里面的各种规则、陷阱；以及人与人之间各种错综复杂的关系。</div>
+        <div id="tag3" class="tags">
+            <span class="tag">村上春树</span>
+            <span class="tag">村上春树</span>
+            <span class="tag">日本文学</span>
+            <span class="tag">超现实</span>
+            <span class="tag">现代</span>
+            <span class="tag">现代</span>
+        </div>
+    </section>
+
+    <section>
+        <div id="intro5" style="overflow: hidden;height: 60px;line-height: 20px">、赏玉的知识；以及这个行业里面的各种规则、陷阱；以及人与人之间各种错综复杂的关系。</div>
+    </section>
+
+    <section>
+    <div class="intros" style="overflow: hidden;height: 60px;line-height: 20px">
+    佟一琮家里祖辈都是玉匠，可是他父亲佟瑞国却反对他碰玉，但又将他抓周时的那块玉系着红绳，栓在他的脖子上。告诉他要善待这块玉，玉是通灵的，救得了人的性命。佟一琮母亲对他的女朋友程小瑜有一种天然的不信任。佟一琮与程小瑜草草结婚后去了上海打工。程小瑜进了外企，事业发展得很好，而佟一琮痴迷于玉，不安心于现在的工作，听说玉王要运往鞍山雕成玉佛，佟一琮执意要回去，为玉佛送行。两人的关系渐行渐远，终于，程小瑜投入了一位成功男人的怀抱。佟一琮出没于全国各大玉器市场，认识了一位老板步凡。佟一琮渐渐懂得，真正的好作品，卖的是艺，不是玉。而这艺的内容就多了。不能就玉而玉，地质学、古玩、根雕、外国美术、佛学、儒学、道家等等，各方面都要学习。佟一琮自此真正入了道，在玉行里浸淫，在商场上拼杀，最终成为了业界赫赫有名的玉雕大师、玉王，并找到了自己心爱之人……本书通过一个玉石大师的成长奋斗和爱恨情仇，侧面展现了一个令人惊叹的玉器古玩世界；以及玩玉、赏玉的知识；以及这个行业里面的各种规则、陷阱；以及人与人之间各种错综复杂的关系。
+    </div>
+    </section>
+
+    <section>
+    <div class="intros" style="overflow: hidden;height: 60px;line-height: 20px">
+    佟一琮家里祖辈都是玉匠，可是他父亲佟瑞国却
+    </div>
+    </section>
+
+     <section>
+    <div class="intros" style="overflow: hidden;height: 60px;line-height: 20px">
+    佟一琮家里祖辈都是玉匠，可是他父亲佟瑞国却反对他碰玉，但又将他抓周时的那块玉系着红绳，栓在他的脖子上。告诉他要善待这块玉，玉是通灵的，救得了人的性命。佟一琮母亲对他的女朋友程小瑜有一种天然的不信任。佟一琮与程小瑜草草结婚后去了上海打工。程小瑜进了外企，事业发展得很好，而佟一琮痴迷于玉，不安心于现在的工作，听说玉王要运往鞍山雕成玉佛，佟一琮执意要回去，为玉佛送行。两人的关系渐行渐远，终于，程小瑜投入了一位成功男人的怀抱。佟一琮出没于全国各大玉器市场，认识了一位老板步凡。佟一琮渐渐懂得，真正的好作品，卖的是艺，不是玉。而这艺的内容就多了。不能就玉而玉，地质学、古玩、根雕、外国美术、佛学、儒学、道家等等，各方面都要学习。佟一琮自此真正入了道，在玉行里浸淫，在商场上拼杀，最终成为了业界赫赫有名的玉雕大师、玉王，并找到了自己心爱之人……本书通过一个玉石大师的成长奋斗和爱恨情仇，侧面展现了一个令人惊叹的玉器古玩世界；以及玩玉、赏玉的知识；以及这个行业里面的各种规则、陷阱；以及人与人之间各种错综复杂的关系。
+    </div>
+</section>
+
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+<script src="zepto.min.js"></script>
 <script src="../clamp.zepto.js"></script>
+<script src="../clamp.js"></script>
 <script>
 $(function() {
 
-    var $tags = $('#tags');
-    // tag被隐藏
-    if ($tags.get(0).scrollHeight > $tags.get(0).clientHeight) {
-        
-    }
-
-    var $intro = $('#intro');
-    var clampResult = $intro.clamp({
-        hasHeight: true,
-        useNativeClamp: false,
+    var $intro1 = $('#intro1');
+    var clampResult1 = $intro1.clamp({
         clamp: 3,
         truncationHTML: '...<span class="triangle down"></span>'
     });
+
+    var $intro2 = $('#intro2');
+    var clampResult2 = $intro2.clamp({
+        hasHeight: true,
+        truncationHTML: '...<span class="triangle down"></span>'
+    });
+
+
+    var $tag3 = $('#tag3');
+    var $intro3 = $('#intro3');
+    var clampResult3 = $intro3.clamp({
+        hasHeight: true,
+        truncationHTML: '...<span class="triangle down"></span>'
+    });
+
+    if ($intro3.data('clamp') || $tag3.get(0).scrollHeight > $tag3.get(0).clientHeight) {
+        $intro3.on('click', function() {
+            if($(this).data('clamp')) {
+                $intro3.html(clampResult3.original + '<span class="triangle up"></span>');
+                $intro3.css({ 'height': 'auto' });
+                $tag3.css({ 'height': 'auto' });
+                $(this).data('clamp', false);
+            } else {
+                $intro3.html(clampResult3.clamped);
+                $intro3.css({ 'height': '' });
+                $tag3.css({ 'height': '' });
+                $(this).data('clamp', true);
+            }
+        });
+    }
+
+    var $intro4 = $('#intro4');
+    var clampResult4 = $intro4.clamp({
+        hasHeight: true,
+        truncationHTML: '...<span class="triangle down"></span>'
+    });
+
+    var $intro5 = $('#intro5');
+    var clampResult5 = $clamp($intro5[0], {
+        hasHeight: true,
+        truncationHTML: '...<span class="triangle down"></span>'
+    });
+
+    /**
+     * 对多个元素
+     */
     
+    var $intros = $('.intros');
+    for(var i = 0; i < $intros.length; i++) {
+        $intros.eq(i).clamp({
+            hasHeight: true,
+            truncationHTML: '...<span class="triangle down"></span>'
+        });
+    }
+
 });
 </script>
 
