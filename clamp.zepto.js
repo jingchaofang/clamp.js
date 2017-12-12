@@ -13,14 +13,15 @@
             var opt = {
                 // 溢出文本行数，默认2
                 clamp: 2,
-                animate: false,
                 // 是否已经给包裹元素设置高度(避免截取后高度闪动),通过定高限制打点行数
                 hasHeight: false,
                 // 分割字符数组，在句号、连字符、短破折号、长破折号和空字符之间分割
                 // Split on sentences (periods), hypens, en-dashes, em-dashes, and words (spaces).
                 splitOnChars: ['，', '、', '。', ' '],
                 // 省略html片段
-                truncationHTML: ''
+                truncationHTML: '',
+                // 强制原文本追加省略html片段
+                force: false
             };
 
             $.extend(opt, options);
@@ -167,7 +168,10 @@
                 elem.html(str);
             }
 
-            
+            if(opt.force) {
+               $self.append(opt.truncationHTML);
+            }
+
             var height = opt.hasHeight ? parseFloat(computeStyle($self[0], 'height')) : getMaxHeight(opt.clamp);
             if (opt.hasHeight ? height < $self[0].scrollHeight : height < $self[0].clientHeight) {
                 // 获取截断溢出省略文本
@@ -175,7 +179,7 @@
                 $self.data('clamp', true);
             } else {
                 clampedHtml = $self.html();
-                $self.data('clamp', false);
+                opt.force ? $self.data('clamp', true) : $self.data('clamp', false);
                 if (opt.hasHeight) {
                     // 释放定高造成的多余空行
                     $self.css({'height':'auto'});
