@@ -1,0 +1,25 @@
+{
+  "name": "clamp.js",
+  "version": "1.0.0",
+  "description": "clamp.js",
+  "main": "clamp.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jingchaofang/clamp.js.git"
+  },
+  "author": "jingchaofang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jingchaofang/clamp.js/issues"
+  },
+  "homepage": "https://github.com/jingchaofang/clamp.js#readme",
+  "devDependencies": {
+    "benchmark": "^2.1.4"
+  }
+}
