@@ -1,10 +1,9 @@
-;
 /**
  * 移动端截取
  * @param  {[type]} $ [description]
  * @return {[type]}   [description]
  */
-(function($) {
+;(function($) {
 
     $.extend($.fn, {
         clamp: function(options) {
