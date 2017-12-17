@@ -1,5 +1,7 @@
 # clamp
 
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 [Demo](https://jingchaofang.github.io/clamp.js/examples/demo.html)
 
 css语法限制2行打点

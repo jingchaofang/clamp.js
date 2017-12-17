@@ -8,7 +8,8 @@
   },
   "scripts": {
     "benchmark": "node ./benchmark/test.js",
-    "eslint": "./node_modules/.bin/eslint clamp.zepto.js"
+    "eslint": "./node_modules/.bin/eslint *.js",
+    "eslintfix": "./node_modules/.bin/eslint *.js --fix"
   },
   "repository": {
     "type": "git",
