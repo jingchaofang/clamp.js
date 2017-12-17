@@ -7,7 +7,8 @@
     "example": "examples"
   },
   "scripts": {
-    "benchmark": "node ./benchmark/test.js"
+    "benchmark": "node ./benchmark/test.js",
+    "eslint": "./node_modules/.bin/eslint clamp.zepto.js"
   },
   "repository": {
     "type": "git",

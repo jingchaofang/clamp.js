@@ -1,12 +1,13 @@
+/* global Zepto:true */
 /**
  * 移动端截取
  * @param  {[type]} $ [description]
  * @return {[type]}   [description]
  */
-;(function($) {
-
+;
+(function ($) {
     $.extend($.fn, {
-        clamp: function(options) {
+        clamp: function (options) {
             // 当前操作的zepto封装的dom对象
             var $self = this;
             var opt = {
@@ -24,7 +25,7 @@
             };
 
             $.extend(opt, options);
-            
+
             var original = $self.html();
             // 截取后未拼接truncationHTML的字符串
             var clampedPure;
@@ -79,12 +80,12 @@
                 if (!maxHeight) return;
 
                 // 重置
-                function reset() {
-                    splitOnChars = opt.splitOnChars.slice(0);
-                    splitChar = splitOnChars[0];
-                    chunks = null;
-                    lastChunk = null;
-                }
+                // function reset() {
+                //     splitOnChars = opt.splitOnChars.slice(0);
+                //     splitChar = splitOnChars[0];
+                //     chunks = null;
+                //     lastChunk = null;
+                // }
 
                 // 目标字符串
                 var targetString = target.html();
@@ -95,8 +96,7 @@
                     if (splitOnChars.length > 0) {
                         // shift()方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度
                         splitChar = splitOnChars.shift();
-                    }
-                    else {
+                    } else {
                         splitChar = '';
                     }
                     // split()方法将一个String对象分割成字符串数组，将字符串分成子串。
@@ -119,7 +119,7 @@
                 // Insert the custom HTML before the truncation character
                 // 插入自定义的HTML片段在被截断的字符
                 if (opt.truncationHTML) {
-                    $self.html( target.html() + opt.truncationHTML );
+                    $self.html(target.html() + opt.truncationHTML);
                 }
 
                 // 存在有效块
@@ -141,8 +141,7 @@
                             return $self.html();
                         }
                     }
-                }
-                else {
+                } else {
                     // No valid chunks even when splitting by letter, time to move on to the next node
                     // 没有有效的块，甚至当分割空字母时，该移动到下一个节点
                     // if (splitChar == '') {
@@ -167,8 +166,8 @@
                 elem.html(str);
             }
 
-            if(opt.force) {
-               $self.append(opt.truncationHTML);
+            if (opt.force) {
+                $self.append(opt.truncationHTML);
             }
 
             var height = opt.hasHeight ? parseFloat(computeStyle($self[0], 'height')) : getMaxHeight(opt.clamp);
@@ -181,7 +180,7 @@
                 opt.force ? $self.data('clamp', true) : $self.data('clamp', false);
                 if (opt.hasHeight) {
                     // 释放定高造成的多余空行
-                    $self.css({'height':'auto'});
+                    $self.css({ 'height': 'auto' });
                 }
             }
 

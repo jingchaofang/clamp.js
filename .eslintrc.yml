@@ -1,1 +1,8 @@
+root: true
 extends: standard
+globals:
+  Zepto: true
+rules:
+  indent:
+    - error
+    - 4
