@@ -7,9 +7,10 @@
     "example": "examples"
   },
   "scripts": {
+    "build": "webpack",
     "benchmark": "node ./benchmark/test.js",
-    "eslint": "./node_modules/.bin/eslint *.js",
-    "eslintfix": "./node_modules/.bin/eslint *.js --fix"
+    "eslint": "eslint src/*.js",
+    "eslintfix": "eslint src/*.js --fix"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,16 @@
   "homepage": "https://github.com/jingchaofang/clamp.js#readme",
   "devDependencies": {
     "benchmark": "^2.1.4",
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.7",
     "eslint": "^4.13.1",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "html-webpack-plugin": "^2.30.1",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0"
   }
 }

@@ -5,9 +5,9 @@
  * @return {[type]}   [description]
  */
 ;
-(function ($) {
+(function($) {
   $.extend($.fn, {
-    clamp: function (options) {
+    clamp: function(options) {
       // 当前操作的zepto封装的dom对象
       var $self = this
       var opt = {
@@ -32,20 +32,20 @@
       // 截取后已拼接truncationHTML的字符串
       var clampedHtml
       /**
-             * 返回指定元素的指定样式渲染后的值
-             * @param  {Object} elem 指定元素
-             * @param  {string} prop 指定属性
-             * @return {string}      属性值
-             */
-      function computeStyle (elem, prop) {
+       * 返回指定元素的指定样式渲染后的值
+       * @param  {Object} elem 指定元素
+       * @param  {string} prop 指定属性
+       * @return {string}      属性值
+       */
+      function computeStyle(elem, prop) {
         return window.getComputedStyle(elem, null).getPropertyValue(prop)
       }
       /**
-             * 获取指定元素渲染后的行高
-             * @param  {Object} elem 指定元素
-             * @return {number}      行高
-             */
-      function getLineHeight (elem) {
+       * 获取指定元素渲染后的行高
+       * @param  {Object} elem 指定元素
+       * @return {number}      行高
+       */
+      function getLineHeight(elem) {
         var lh = computeStyle(elem, 'line-height')
         if (lh === 'normal') {
           // Normal line heights vary from browser to browser. The spec recommends
@@ -55,11 +55,11 @@
         return parseInt(lh)
       }
       /**
-             * 根据设定的溢出行数获取最大高度
-             * @param  {number} clmp 溢出行数
-             * @return {number}      溢出最大高度
-             */
-      function getMaxHeight (clmp) {
+       * 根据设定的溢出行数获取最大高度
+       * @param  {number} clmp 溢出行数
+       * @return {number}      溢出最大高度
+       */
+      function getMaxHeight(clmp) {
         var lineHeight = getLineHeight($self[0])
         return lineHeight * clmp
       }
@@ -71,12 +71,12 @@
       var lastChunk
 
       /**
-             * 截断，每次从文本中移除一个字符直到它的宽度或高度到达约定的最大传入参数
-             * @param  {Object} target    zepto元素
-             * @param  {number} maxHeight 溢出文本限定最大高度
-             * @return {string}           溢出省略处理后文本
-             */
-      function truncate (target, maxHeight) {
+       * 截断，每次从文本中移除一个字符直到它的宽度或高度到达约定的最大传入参数
+       * @param  {Object} target    zepto元素
+       * @param  {number} maxHeight 溢出文本限定最大高度
+       * @return {string}           溢出省略处理后文本
+       */
+      function truncate(target, maxHeight) {
         if (!maxHeight) return
 
         // 重置
@@ -153,12 +153,12 @@
       }
 
       /**
-             * 拼接
-             * @param  {Object} elem 指定元素
-             * @param  {string} str  截断后字符文本
-             * @return {string}      拼接后省略文本
-             */
-      function applyEllipsis (elem, str) {
+       * 拼接
+       * @param  {Object} elem 指定元素
+       * @param  {string} str  截断后字符文本
+       * @return {string}      拼接后省略文本
+       */
+      function applyEllipsis(elem, str) {
         elem.html(str)
       }
 

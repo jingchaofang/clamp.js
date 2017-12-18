@@ -3,7 +3,7 @@
  * 指定行数截取所需文字，可以有换行标签
  * @return {Array} 截取到两部分html
  */
-function splitHtml (options) {
+function splitHtml(options) {
   var opt = {
     // 截取html容器，原生DOM
     o: null,
@@ -38,7 +38,7 @@ function splitHtml (options) {
   // html宽度相关函数
   // 因为非等宽字体，通过直串计算文本节点宽
   // 系统设置字体的，即使动态插入的也会被缩放影响
-  function charsWidthSum (s, fs) {
+  function charsWidthSum(s, fs) {
     var _div = document.createElement('div')
     var _w = 0
     _div.style.cssText = 'font-size:' + fs + 'px; visibility:hidden; white-space:nowrap; position:fixed; top:0; left:0'
@@ -50,7 +50,7 @@ function splitHtml (options) {
   }
 
   // 截取指定宽度
-  function charsTrim (s, w, fs) {
+  function charsTrim(s, w, fs) {
     if (charsWidthSum(s, fs) > w) {
       while (charsWidthSum(s, fs) > w) {
         s = s.slice(0, -1)
