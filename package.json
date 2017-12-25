@@ -7,10 +7,12 @@
     "example": "examples"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.prod.js",
     "benchmark": "node ./benchmark/test.js",
     "eslint": "eslint src/*.js",
-    "eslintfix": "eslint src/*.js --fix"
+    "eslintfix": "eslint src/*.js --fix",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,9 @@
     "eslint-plugin-standard": "^3.0.1",
     "html-webpack-plugin": "^2.30.1",
     "style-loader": "^0.19.1",
-    "webpack": "^3.10.0"
+    "uglifyjs-webpack-plugin": "^1.1.4",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.1"
   }
 }

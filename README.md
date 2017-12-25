@@ -4,6 +4,12 @@
 
 [Demo](https://jingchaofang.github.io/clamp.js/examples/demo.html)
 
+```
+npm run build
+npm run eslint
+./benchmark/test.html
+```
+
 css语法限制2行打点
 
 ```css
