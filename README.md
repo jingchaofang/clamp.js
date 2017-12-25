@@ -4,13 +4,18 @@
 
 [Demo](https://jingchaofang.github.io/clamp.js/examples/demo.html)
 
+## commond
+
 ```
 npm run build
+npm run start
 npm run eslint
 ./benchmark/test.html
 ```
 
-css语法限制2行打点
+## css截取应用
+
+限制2行打点
 
 ```css
 .clamp {
@@ -24,17 +29,7 @@ css语法限制2行打点
 }
 ```
 
-css语法限制1行打点
-
-```css
-.ellipsis {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-```
-
-css语法限制1行打点
+限制1行打点`-webkit-line-clamp:1`
 
 ```css
 .clamp {
@@ -48,7 +43,45 @@ css语法限制1行打点
 }
 ```
 
-包裹元素不定高clamp.zepto.js截取并拼接片段，不定高容易出现大幅度闪动，影响体验
+限制1行打点
+
+```css
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+```
+
+后跟元素限制1行打点
+
+```css
+
+／*元素紧跟*／
+.ellipsis-auto {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+／*元素贴右*／
+.ellipsis-full {
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+```
+
+
+## js截取应用
+
+包裹元素不定高`clamp.zepto.js`截取并拼接片段，不定高容易出现大幅度闪动，影响体验
 
 ```js
 var $intro1 = $('#intro1');
@@ -58,7 +91,7 @@ var clampResult1 = $intro1.clamp({
 });
 ```
 
-包裹元素定高clamp.zepto.js截取并拼接片段
+包裹元素定高`clamp.zepto.js`截取并拼接片段，定高防止大幅度闪动，但是追加的片段折叠按钮会闪动
 
 ```js
 var $intro2 = $('#intro2');
@@ -68,7 +101,7 @@ var clampResult2 = $intro2.clamp({
 });
 ```
 
-包裹元素定高clamp.zepto.js截取并拼接片段
+包裹元素定高并且有内容标签逻辑限制是否有折叠按钮`clamp.zepto.js`截取并拼接片段，没有传参force，会忽略一种追加片段的情况：文本不够截取时，内容标签有隐藏内容时
 
 ```js
     var $tag3 = $('#tag3');
@@ -95,13 +128,35 @@ var clampResult2 = $intro2.clamp({
     }
 ```
 
+包裹元素定高并且有内容标签逻辑限制是否有折叠按钮`clamp.zepto.js`截取并拼接片段，force判断是否强制添加折叠按钮
 
 ```js
+/**
+ * 标签有隐藏内容
+ */
+var $tag4 = $('#tag4');
 var $intro4 = $('#intro4');
 var clampResult4 = $intro4.clamp({
     hasHeight: true,
-    truncationHTML: '...'
+    truncationHTML: '...',
+    force: $tag4.get(0).scrollHeight > $tag4.get(0).clientHeight ? true : false
 });
+
+if ($intro4.data('clamp') || $tag4.get(0).scrollHeight > $tag4.get(0).clientHeight) {
+    $intro4.on('click', function() {
+        if ($(this).data('clamp')) {
+            $intro4.html(clampResult4.original + '...');
+            $intro4.css({ 'height': 'auto' });
+            $tag4.css({ 'height': 'auto' });
+            $(this).data('clamp', false);
+        } else {
+            $intro4.html(clampResult4.clamped);
+            $intro4.css({ 'height': '' });
+            $tag4.css({ 'height': '' });
+            $(this).data('clamp', true);
+        }
+    });
+}
 ```
 
 ```js

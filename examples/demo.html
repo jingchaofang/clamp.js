@@ -56,6 +56,39 @@ display: -webkit-box;
         一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本一段很长的文本
     </section>
 </figure>
+
+<figure>
+    <p>css语法限制1行后跟元素打点</p>
+    <pre><code class="css">
+.ellipsis-auto {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ellipsis-full {
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+</code></pre>
+    <section>
+        <div style="font-size: 0;">
+            <div class="ellipsis-auto" style="font-size: 14px;"><span class="tag-price">6折</span>妖猫传：沙门空海之大唐鬼宴妖猫传</div>
+            <div class="ellipsis-auto" style="font-size: 14px;"><span class="tag-price">6折</span>妖猫传：沙门空海之大唐鬼宴妖猫传：沙门空海之大唐鬼宴</div>
+            <div class="ellipsis-full" style="font-size: 14px;"><span class="top">2</span>妖猫传：沙门空海之大唐鬼宴妖猫传</div>
+            <div class="ellipsis-full" style="font-size: 14px;"><span class="top">3</span>妖猫传：沙门空海之大唐鬼宴妖猫传：沙门空海之大唐鬼宴</div>
+            <div class="ellipsis-full" style="font-size: 14px;"><span class="top">4</span>妖猫传：沙门空海之大唐鬼宴妖猫传：沙门空海之大唐鬼宴</div>
+        </div>
+    </section>
+</figure>
+
 <figure>
     <p>包裹元素不定高clamp.zepto.js截取并拼接片段，不定高容易出现大幅度闪动，影响体验</p>
     <pre><code class="javascript">var $intro1 = $('#intro1');
@@ -106,8 +139,8 @@ if ($intro3.data('clamp') || $tag3.get(0).scrollHeight > $tag3.get(0).clientHeig
 }
 </code></pre>
     <section>
-        <div id="intro3" style="overflow: hidden;height: 60px;line-height: 20px">佟一琮家里祖辈都是玉匠，可是他父亲佟瑞国却反对他碰玉，但又将他抓周时的那块玉系着红绳，栓在他的脖子上。告诉他要善待这块玉，玉是通灵的，救得了人的性命。佟一琮母亲对他的女朋友程小瑜有一种天然的不信任。佟一琮与程小瑜草草结婚后去了上海打工。程小瑜进了外企，事业发展得很好，而佟一琮痴迷于玉，不安心于现在的工作，听说玉王要运往鞍山雕成玉佛，佟一琮执意要回去，为玉佛送行。两人的关系渐行渐远，终于，程小瑜投入了一位成功男人的怀抱。佟一琮出没于全国各大玉器市场，认识了一位老板步凡。佟一琮渐渐懂得，真正的好作品，卖的是艺，不是玉。而这艺的内容就多了。不能就玉而玉，地质学、古玩、根雕、外国美术、佛学、儒学、道家等等，各方面都要学习。佟一琮自此真正入了道，在玉行里浸淫，在商场上拼杀，最终成为了业界赫赫有名的玉雕大师、玉王，并找到了自己心爱之人……本书通过一个玉石大师的成长奋斗和爱恨情仇，侧面展现了一个令人惊叹的玉器古玩世界；以及玩玉、赏玉的知识；以及这个行业里面的各种规则、陷阱；以及人与人之间各种错综复杂的关系。</div>
-        <div id="tag3" class="tags" style="height: auto;">
+        <div id="intro3" style="overflow: hidden;height: 60px;line-height: 20px">佟一琮自此真正入了道，在玉行里浸淫，在商场上拼杀，最终成为了业界赫赫有名的玉雕大师、玉王，并找到了自己心爱之人……本书通过一个玉石大师的成长奋斗和爱恨情仇</div>
+        <div id="tag3" class="tags">
             <span class="tag">村上春树</span>
             <span class="tag">村上春树</span>
             <span class="tag">日本文学</span>
