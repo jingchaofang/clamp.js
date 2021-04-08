@@ -4,7 +4,11 @@
 
 [Demo](https://jingchaofang.github.io/clamp.js/examples/demo.html)
 
-## commond
+## 其它库
+
+[vue-clamp](https://github.com/Justineo/vue-clamp)
+
+## 开发
 
 ```
 npm run build
